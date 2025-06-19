@@ -1,0 +1,1416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skyline Estates | ስካይላይን ኢስቴትስ - የላይኛ ደረጃ ንብረት</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        /* ===== GLOBAL STYLES ===== */
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #f59e0b;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --success: #10b981;
+            --font-amharic: 'Noto Sans Ethiopic', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        .amharic {
+            font-family: var(--font-amharic);
+        }
+
+        /* ===== LANGUAGE TOGGLE ===== */
+        .language-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            background: rgba(255,255,255,0.9);
+            border-radius: 50px;
+            padding: 5px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .language-btn {
+            background: none;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .language-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* ===== NAVBAR ===== */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 25px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+            background: linear-gradient(180deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 100%);
+        }
+
+        nav.scrolled {
+            background: rgba(255,255,255,0.98);
+            box-shadow: 0 5px 30px rgba(0,0,0,0.1);
+            padding: 15px 5%;
+        }
+
+        nav.scrolled .nav-links a,
+        nav.scrolled .logo,
+        nav.scrolled .mobile-menu-btn {
+            color: var(--dark);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            position: relative;
+            transition: all 0.3s;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 101;
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .hero-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        .hero-content {
+            position: relative;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 5%;
+            color: white;
+            background: rgba(0,0,0,0.4);
+        }
+
+        .hero-content h1 {
+            font-size: clamp(2.5rem, 7vw, 5rem);
+            margin-bottom: 20px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            font-weight: 800;
+        }
+
+        .hero-content p {
+            font-size: clamp(1rem, 2vw, 1.5rem);
+            max-width: 800px;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-block;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .btn-secondary {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        /* ===== ABOUT SECTION ===== */
+        .about {
+            padding: 120px 5%;
+            background: white;
+        }
+
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: var(--dark);
+            font-weight: 700;
+        }
+
+        .section-header p {
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-img {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 30px 50px rgba(0,0,0,0.1);
+            position: relative;
+            height: 500px;
+        }
+
+        .about-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .about-img:hover img {
+            transform: scale(1.05);
+        }
+
+        .about-content h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+
+        .about-content p {
+            margin-bottom: 20px;
+            color: var(--gray);
+            font-size: 1.1rem;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 20px;
+            background: var(--light);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* ===== PROPERTIES SECTION ===== */
+        .properties {
+            padding: 120px 5%;
+            background: var(--light);
+        }
+
+        .properties-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .property-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        .property-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .property-img-container {
+            height: 250px;
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .property-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .property-card:hover .property-img {
+            transform: scale(1.1);
+        }
+
+        .property-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--primary);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .property-info {
+            padding: 25px;
+        }
+
+        .property-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+
+        .property-location {
+            color: var(--primary);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .property-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .feature i {
+            color: var(--primary);
+            font-size: 1rem;
+        }
+
+        .property-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .property-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        .property-price span {
+            font-size: 1rem;
+            font-weight: 400;
+            color: var(--gray);
+        }
+
+        .view-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: var(--primary);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .view-btn:hover {
+            background: var(--primary-dark);
+            transform: translateX(5px);
+        }
+
+        /* ===== TESTIMONIALS ===== */
+        .testimonials {
+            padding: 120px 5%;
+            background: white;
+            position: relative;
+        }
+
+        .testimonials::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1350&q=80') center/cover;
+            opacity: 0.03;
+            z-index: 0;
+        }
+
+        .testimonials-container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .testimonial-slider {
+            display: flex;
+            overflow-x: auto;
+            gap: 30px;
+            padding: 30px 0;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .testimonial-slider::-webkit-scrollbar {
+            display: none;
+        }
+
+        .testimonial-card {
+            min-width: 350px;
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            scroll-snap-align: start;
+            position: relative;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 5rem;
+            color: rgba(37, 99, 235, 0.1);
+            font-family: serif;
+            line-height: 1;
+            z-index: 0;
+        }
+
+        .testimonial-text {
+            position: relative;
+            z-index: 1;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            color: #555;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .author-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--primary);
+        }
+
+        .author-info h4 {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+            color: var(--dark);
+        }
+
+        .author-info p {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* ===== CTA SECTION ===== */
+        .cta {
+            padding: 100px 5%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            animation: rotate 20s linear infinite;
+            z-index: 0;
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .cta-content p {
+            margin-bottom: 40px;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* ===== CONTACT SECTION ===== */
+        .contact {
+            padding: 120px 5%;
+            background: var(--light);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 60px;
+        }
+
+        .contact-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            color: var(--dark);
+        }
+
+        .contact-details {
+            margin-bottom: 40px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .contact-icon {
+            color: var(--primary);
+            font-size: 1.2rem;
+            margin-top: 3px;
+        }
+
+        .contact-text h4 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            color: var(--dark);
+        }
+
+        .contact-text p {
+            color: var(--gray);
+            font-size: 1rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links a {
+            color: white;
+            background: var(--primary);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background: var(--primary-dark);
+            transform: translateY(-5px);
+        }
+
+        .contact-form {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        .contact-form h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+        }
+
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 80px 5% 30px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-col h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--primary);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #bbb;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #bbb;
+            font-size: 0.9rem;
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes rotate {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* ===== MOBILE RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            nav {
+                padding: 20px;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                height: 100vh;
+                background: white;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 30px;
+                transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+                z-index: 90;
+                box-shadow: -5px 0 30px rgba(0,0,0,0.1);
+            }
+            
+            .nav-links.active {
+                right: 0;
+            }
+            
+            .nav-links a {
+                color: var(--dark);
+                font-size: 1.2rem;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero-content h1 {
+                font-size: 2.8rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .properties-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .testimonial-card {
+                min-width: 280px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Language Toggle -->
+    <div class="language-toggle">
+        <button class="language-btn active" id="englishBtn">EN</button>
+        <button class="language-btn" id="amharicBtn">አማ</button>
+    </div>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+       
+            <span class="en">Skyline</span><span class="amharic" style="display:none">ስካይላይን</span><span>Estates</span>
+        </a>
+        <div class="nav-links">
+            <a href="#home" class="en">Home</a>
+            <a href="#home" class="amharic" style="display:none">መነሻ</a>
+            <a href="#about" class="en">About</a>
+            <a href="#about" class="amharic" style="display:none">ስለ እኛ</a>
+            <a href="#properties" class="en">Properties</a>
+            <a href="#properties" class="amharic" style="display:none">ንብረቶች</a>
+            <a href="#testimonials" class="en">Testimonials</a>
+            <a href="#testimonials" class="amharic" style="display:none">ምስክርነቶች</a>
+            <a href="#contact" class="en">Contact</a>
+            <a href="#contact" class="amharic" style="display:none">አግኙን</a>
+        </div>
+        <button class="mobile-menu-btn" id="menuBtn">
+            <i class="fas fa-bars"></i>
+        </button>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero" id="home">
+        <video autoplay muted loop class="hero-video">
+            <source src="https://tse1.mm.bing.net/th?id=OIP.fUUDQBbkwU4IAvhAFJEi1AHaDt&pid=Api&P=0&h=220" type="video/mp4">
+        </video>
+        <div class="hero-content">
+            <h1 class="en animate__animated animate__fadeInDown">Discover Your Dream Property</h1>
+            <h1 class="amharic animate__animated animate__fadeInDown" style="display:none">የህልምዎን ንብረት ያግኙ</h1>
+            <p class="en animate__animated animate__fadeInUp animate__delay-1s">Premium real estate services for the most discerning clients</p>
+            <p class="amharic animate__animated animate__fadeInUp animate__delay-1s" style="display:none">ለበለጠ ጥራት የሚፈልጉ ደንበኞች የላይኛ ደረጃ የንብረት አገልግሎት</p>
+            <div class="cta-buttons animate__animated animate__fadeInUp animate__delay-2s">
+                <a href="#properties" class="btn btn-primary en">View Properties</a>
+                <a href="#properties" class="btn btn-primary amharic" style="display:none">ንብረቶችን ይመልከቱ</a>
+                <a href="#contact" class="btn btn-secondary en">Contact Us</a>
+                <a href="#contact" class="btn btn-secondary amharic" style="display:none">ያግኙን</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="en">About Skyline Estates</h2>
+                <h2 class="amharic" style="display:none">ስለ ስካይላይን ኢስቴትስ</h2>
+                <p class="en">We redefine luxury living through exceptional service and unparalleled expertise</p>
+                <p class="amharic" style="display:none">በልዩ አገልግሎት እና በማይመሳሰል ብቃት የላይኛ ደረጃ ኑሮን እንደገና እንገልፃለን</p>
+            </div>
+            
+            <div class="about-grid">
+                <div class="about-img">
+                    <img src="https://wallpapercave.com/wp/wp4110685.jpg" alt="Luxury Real Estate">
+                </div>
+                <div class="about-content">
+                    <h3 class="en">15 Years of Excellence</h3>
+                    <h3 class="amharic" style="display:none">15 ዓመታት የላይኛ ደረጃ አገልግሎት</h3>
+                    <p class="en">Skyline Estates has been the premier choice for luxury real estate since 2008. Our team of dedicated professionals combines local market expertise with global connections to deliver exceptional results.</p>
+                    <p class="amharic" style="display:none">ስካይላይን ኢስቴትስ ከ2008 ጀምሮ ለላይኛ ደረጃ ንብረት የቀድሞ ምርጫ ነው። የተለየ ውጤቶችን ለማምጣት የአካባቢ ገበያ ብቃት ከግሎባል ግንኙነቶች ጋር የሚያጣምሩ የተለየ ባለሙያዎች ቡድናችን አለን።</p>
+                    <p class="en">We pride ourselves on our integrity, attention to detail, and commitment to exceeding client expectations at every turn.</p>
+                    <p class="amharic" style="display:none">በአግባቡነታችን፣ በዝርዝር ትኩረታችን እና ደንበኞቻችንን በእያንዳንዱ እርምጃ ከሚጠበቀው በላይ በማሳደድ ቁርጠኝነታችን እንኩራለን።</p>
+                    
+                    <div class="stats">
+                        <div class="stat-item">
+                            <div class="stat-number">500+</div>
+                            <div class="stat-label en">Properties Sold</div>
+                            <div class="stat-label amharic" style="display:none">የተሸጡ ንብረቶች</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">$2B+</div>
+                            <div class="stat-label en">In Transactions</div>
+                            <div class="stat-label amharic" style="display:none">በግብይቶች</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">98%</div>
+                            <div class="stat-label en">Client Satisfaction</div>
+                            <div class="stat-label amharic" style="display:none">የደንበኞች እርካታ</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Properties Section -->
+    <section class="properties" id="properties">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="en">Featured Properties</h2>
+                <h2 class="amharic" style="display:none">የተመረጡ ንብረቶች</h2>
+                <p class="en">Explore our exclusive collection of premium properties in the most desirable locations</p>
+                <p class="amharic" style="display:none">በበለጠ የሚፈለጉ ቦታዎች ውስጥ ያለውን የብርሃን ስብስባችንን ያስሱ</p>
+            </div>
+            
+            <div class="properties-grid">
+                <!-- Property 1 -->
+                <div class="property-card animate__animated animate__fadeInUp">
+                    <div class="property-img-container">
+                        <img src="https://tse3.mm.bing.net/th?id=OIP.yUJpyUbFTHb5MrFlwu8oOwHaEK&pid=Api&P=0&h=220" alt="Luxury Villa" class="property-img">
+                        <div class="property-badge en">Featured</div>
+                        <div class="property-badge amharic" style="display:none">ተለይቶ የቀረበ</div>
+                    </div>
+                    <div class="property-info">
+                        <h3 class="en">Oceanfront Luxury Villa</h3>
+                        <h3 class="amharic" style="display:none">የባሕር ፊት ለፊት የላይኛ ደረጃ ቪላ</h3>
+                        <p class="property-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span class="en">Miami Beach, FL</span>
+                            <span class="amharic" style="display:none">ማያሚ ቢች፣ ፍሎሪዳ</span>
+                        </p>
+                        <div class="property-features">
+                            <span class="feature">
+                                <i class="fas fa-bed"></i>
+                                <span class="en">5 Beds</span>
+                                <span class="amharic" style="display:none">5 አልጋዎች</span>
+                            </span>
+                            <span class="feature">
+                                <i class="fas fa-bath"></i>
+                                <span class="en">4.5 Baths</span>
+                                <span class="amharic" style="display:none">4.5 መታጠቢያ ቤቶች</span>
+                            </span>
+                            <span class="feature">
+                                <i class="fas fa-vector-square"></i>
+                                <span class="en">3,500 sqft</span>
+                                <span class="amharic" style="display:none">3,500 ካሬ ጫማ</span>
+                            </span>
+                        </div>
+                        <div class="property-footer">
+                            <div class="property-price">$1,250,000</div>
+                            <a href="#" class="view-btn">
+                                <span class="en">View</span>
+                                <span class="amharic" style="display:none">ይመልከቱ</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Property 2 -->
+                <div class="property-card animate__animated animate__fadeInUp animate__delay-1s">
+                    <div class="property-img-container">
+                        <img src="https://images.unsplash.com/photo-1493809842364-78817add7ffb" alt="Modern Apartment" class="property-img">
+                        <div class="property-badge en">New Listing</div>
+                        <div class="property-badge amharic" style="display:none">አዲስ ዝርዝር</div>
+                    </div>
+                    <div class="property-info">
+                        <h3 class="en">Modern Downtown Apartment</h3>
+                        <h3 class="amharic" style="display:none">ዘመናዊ የከተማ ማዕከል አፓርታማ</h3>
+                        <p class="property-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span class="en">New York, NY</span>
+                            <span class="amharic" style="display:none">ኒውዮርክ፣ NY</span>
+                        </p>
+                        <div class="property-features">
+                            <span class="feature">
+                                <i class="fas fa-bed"></i>
+                                <span class="en">2 Beds</span>
+                                <span class="amharic" style="display:none">2 አልጋዎች</span>
+                            </span>
+                            <span class="feature">
+                                <i class="fas fa-bath"></i>
+                                <span class="en">2 Baths</span>
+                                <span class="amharic" style="display:none">2 መታጠቢያ ቤቶች</span>
+                            </span>
+                            <span class="feature">
+                                <i class="fas fa-vector-square"></i>
+                                <span class="en">1,200 sqft</span>
+                                <span class="amharic" style="display:none">1,200 ካሬ ጫማ</span>
+                            </span>
+                        </div>
+                        <div class="property-footer">
+                            <div class="property-price">$750,000</div>
+                            <a href="#" class="view-btn">
+                                <span class="en">View</span>
+                                <span class="amharic" style="display:none">ይመልከቱ</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Property 3 -->
+                <div class="property-card animate__animated animate__fadeInUp animate__delay-2s">
+                    <div class="property-img-container">
+                        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c" alt="Family House" class="property-img">
+                        <div class="property-badge en">Popular</div>
+                        <div class="property-badge amharic" style="display:none">ተወዳጅ</div>
+                    </div>
+                    <div class="property-info">
+                        <h3 class="en">Suburban Family House</h3>
+                        <h3 class="amharic" style="display:none">የከተማ ክልል የቤተሰብ ቤት</h3>
+                        <p class="property-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span class="en">Austin, TX</span>
+                            <span class="amharic" style="display:none">ኦስቲን፣ ቴክሳስ</span>
+                        </p>
+                        <div class="property-features">
+                            <span class="feature">
+                                <i class="fas fa-bed"></i>
+                                <span class="en">4 Beds</span>
+                                <span class="amharic" style="display:none">4 አልጋዎች</span>
+                            </span>
+                            <span class="feature">
+                                <i class="fas fa-bath"></i>
+                                <span class="en">3 Baths</span>
+                                <span class="amharic" style="display:none">3 መታጠቢያ ቤቶች</span>
+                            </span>
+                            <span class="feature">
+                                <i class="fas fa-vector-square"></i>
+                                <span class="en">2,800 sqft</span>
+                                <span class="amharic" style="display:none">2,800 ካሬ ጫማ</span>
+                            </span>
+                        </div>
+                        <div class="property-footer">
+                            <div class="property-price">$850,000</div>
+                            <a href="#" class="view-btn">
+                                <span class="en">View</span>
+                                <span class="amharic" style="display:none">ይመልከቱ</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials" id="testimonials">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="en">Client Testimonials</h2>
+                <h2 class="amharic" style="display:none">የደንበኞች አስተያየቶች</h2>
+                <p class="en">Hear what our clients say about their experiences with Skyline Estates</p>
+                <p class="amharic" style="display:none">ደንበኞቻችን ስለ ስካይላይን ኢስቴትስ በተሰማሟቸው ልምዶች ምን እንደሚሉ ይስማሩ</p>
+            </div>
+            
+            <div class="testimonial-slider">
+                <!-- Testimonial 1 -->
+                <div class="testimonial-card">
+                    <p class="testimonial-text en">
+                        "Skyline Estates helped me find my dream home in record time. Their agents were knowledgeable and attentive to all my needs. I couldn't be happier with the service!"
+                    </p>
+                    <p class="testimonial-text amharic" style="display:none">
+                        "ስካይላይን ኢስቴትስ የህልሜን ቤት በጥሩ ጊዜ እንድፈልግ ረድቶኛል። ወኪሎቻቸው የተማሩ እና ለሁሉም ፍላጎቶቼ ትኩረት የሰጡ ነበሩ። ከአገልግሎታቸው የበለጠ ደስተኛ ሊሆን አይችልም!"
+                    </p>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Sarah Johnson" class="author-img">
+                        <div class="author-info">
+                            <h4>Sarah Johnson</h4>
+                            <p class="en">Homeowner in Miami</p>
+                            <p class="amharic" style="display:none">በማያሚ የቤት ባለቤት</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 2 -->
+                <div class="testimonial-card">
+                    <p class="testimonial-text en">
+                        "As an international investor, I needed a team with global expertise. Skyline Estates not only found me lucrative properties but also handled all the legal complexities."
+                    </p>
+                    <p class="testimonial-text amharic" style="display:none">
+                        "እንደ ዓለም አቀፍ ኢንቨስተር፣ የግሎባል ብቃት ያለው ቡድን ያስፈልገኝ ነበር። ስካይላይን ኢስቴትስ ትርፋማ ንብረቶችን ብቻ ሳይሆን �ለሁሉም የሕግ ውስብስብ ጉዳዮች አስተናግዷል።"
+                    </p>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Michael Chen" class="author-img">
+                        <div class="author-info">
+                            <h4>Michael Chen</h4>
+                            <p class="en">Real Estate Investor</p>
+                            <p class="amharic" style="display:none">የንብረት ኢንቨስተር</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 3 -->
+                <div class="testimonial-card">
+                    <p class="testimonial-text en">
+                        "The luxury properties in Skyline Estates' portfolio are truly exceptional. They understood exactly what we were looking for and arranged private viewings."
+                    </p>
+                    <p class="testimonial-text amharic" style="display:none">
+                        "በስካይላይን ኢስቴትስ ፖርትፎሊዮ ውስጥ ያሉት የላይኛ ደረጃ ንብረቶች በእውነት ልዩ ናቸው። ምን እንደምንፈልግ በትክክል ተረድተው �ይሳዩን አዘጋጅተውልኛል።"
+                    </p>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="David Wilson" class="author-img">
+                        <div class="author-info">
+                            <h4>David Wilson</h4>
+                            <p class="en">Luxury Home Buyer</p>
+                            <p class="amharic" style="display:none">የላይኛ ደረጃ ቤት ገዢ</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="cta-content">
+            <h2 class="en">Ready to Find Your Dream Property?</h2>
+            <h2 class="amharic" style="display:none">የህልምዎን ንብረት ለማግኘት ዝግጁ ነዎት?</h2>
+            <p class="en">Contact our team of experts today to begin your journey to finding the perfect home or investment property.</p>
+            <p class="amharic" style="display:none">ትክክለኛውን ቤት ወይም የኢንቨስትመንት ንብረት ለማግኘት ጉዞዎን ለመጀመር ዛሬ የእኛን የባለሙያዎች ቡድን ያግኙን።</p>
+            <a href="#contact" class="btn btn-primary" style="background: white; color: var(--primary);">
+                <span class="en">Get Started</span>
+                <span class="amharic" style="display:none">ጀምር</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="en">Contact Us</h2>
+                <h2 class="amharic" style="display:none">አግኙን</h2>
+                <p class="en">Get in touch with our team for personalized assistance</p>
+                <p class="amharic" style="display:none">በግል እርዳታ ለማግኘት ከቡድናችን ጋር ያገናኙን</p>
+            </div>
+            
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h3 class="en">Our Office</h3>
+                    <h3 class="amharic" style="display:none">ቢሮችን</h3>
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt contact-icon"></i>
+                            <div class="contact-text">
+                                <h4 class="en">Address</h4>
+                                <h4 class="amharic" style="display:none">አድራሻ</h4>
+                                <p class="en">123 Skyline Boulevard, Suite 500<br>New York, NY 10001</p>
+                                <p class="amharic" style="display:none">123 ስካይላይን ቡልቫርድ፣ ስዊት 500<br>ኒውዮርክ፣ NY 10001</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone-alt contact-icon"></i>
+                            <div class="contact-text">
+                                <h4 class="en">Phone</h4>
+                                <h4 class="amharic" style="display:none">ስልክ</h4>
+                                <p>(212) 555-1234</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope contact-icon"></i>
+                            <div class="contact-text">
+                                <h4 class="en">Email</h4>
+                                <h4 class="amharic" style="display:none">ኢሜይል</h4>
+                                <p>info@skylineestates.com</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h3 class="en" style="margin-top: 40px;">Follow Us</h3>
+                    <h3 class="amharic" style="display:none; margin-top: 40px;">ይከተሉን</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <h3 class="en">Send Us a Message</h3>
+                    <h3 class="amharic" style="display:none">መልእክት ይላኩልን</h3>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <input type="text" class="form-control en" placeholder="Your Name" required>
+                            <input type="text" class="form-control amharic" placeholder="ስምዎ" style="display:none" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control en" placeholder="Your Email" required>
+                            <input type="email" class="form-control amharic" placeholder="ኢሜይልዎ" style="display:none" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control en" placeholder="Subject">
+                            <input type="text" class="form-control amharic" placeholder="ርዕስ" style="display:none">
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control en" placeholder="Your Message" required></textarea>
+                            <textarea class="form-control amharic" placeholder="መልእክትዎ" style="display:none" required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">
+                            <span class="en">Send Message</span>
+                            <span class="amharic" style="display:none">መልእክት ላክ</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h3 class="en">Skyline Estates</h3>
+                <h3 class="amharic" style="display:none">ስካይላይን ኢስቴትስ</h3>
+                <p class="en">Premium real estate services for discerning clients worldwide. Your dream property awaits.</p>
+                <p class="amharic" style="display:none">በመላው ዓለም ለብቃት ያላቸው ደንበኞች የላይኛ ደረጃ የንብረት አገልግሎት። የህልምዎ ንብረት ይጠብቃችኋል።</p>
+            </div>
+            
+            <div class="footer-col">
+                <h3 class="en">Quick Links</h3>
+                <h3 class="amharic" style="display:none">ፈጣን አገናኞች</h3>
+                <ul class="footer-links">
+                    <li><a href="#home" class="en">Home</a><a href="#home" class="amharic" style="display:none">መነሻ</a></li>
+                    <li><a href="#about" class="en">About</a><a href="#about" class="amharic" style="display:none">ስለ እኛ</a></li>
+                    <li><a href="#properties" class="en">Properties</a><a href="#properties" class="amharic" style="display:none">ንብረቶች</a></li>
+                    <li><a href="#testimonials" class="en">Testimonials</a><a href="#testimonials" class="amharic" style="display:none">ምስክርነቶች</a></li>
+                    <li><a href="#contact" class="en">Contact</a><a href="#contact" class="amharic" style="display:none">አግኙን</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h3 class="en">Services</h3>
+                <h3 class="amharic" style="display:none">አገልግሎቶች</h3>
+                <ul class="footer-links">
+                    <li><a href="#" class="en">Buying</a><a href="#" class="amharic" style="display:none">መግዛት</a></li>
+                    <li><a href="#" class="en">Selling</a><a href="#" class="amharic" style="display:none">መሸጥ</a></li>
+                    <li><a href="#" class="en">Renting</a><a href="#" class="amharic" style="display:none">መተካየን</a></li>
+                    <li><a href="#" class="en">Property Management</a><a href="#" class="amharic" style="display:none">የንብረት አስተዳደር</a></li>
+                    <li><a href="#" class="en">Investment Consulting</a><a href="#" class="amharic" style="display:none">የኢንቨስትመንት ምክር</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h3 class="en">Newsletter</h3>
+                <h3 class="amharic" style="display:none">ዜና ደብዳቤ</h3>
+                <p class="en">Subscribe to receive updates on new properties and market insights.</p>
+                <p class="amharic" style="display:none">ለአዳዲስ ንብረቶች እና የገበያ ግንዛቤዎች ለማግኘት ይመዝገቡ።</p>
+                <form class="newsletter-form">
+                    <input type="email" class="form-control en" placeholder="Your Email">
+                    <input type="email" class="form-control amharic" placeholder="ኢሜይልዎ" style="display:none">
+                    <button type="submit" class="submit-btn" style="margin-top: 10px;">
+                        <span class="en">Subscribe</span>
+                        <span class="amharic" style="display:none">ይመዝገቡ</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p class="en">&copy; 2023 Skyline Estates. All Rights Reserved. | Designed for Portfolio Presentation</p>
+            <p class="amharic" style="display:none">&copy; 2023 ስካይላይን ኢስቴትስ. ሁሉም መብቶች የተጠበቁ ናቸው. | ለፖርትፎሊዮ ማቅረቢያ የተዘጋጀ</p>
+        </div>
+    </footer>
+
+    <script>
+        // Language Toggle Functionality
+        const englishBtn = document.getElementById('englishBtn');
+        const amharicBtn = document.getElementById('amharicBtn');
+        
+        englishBtn.addEventListener('click', () => {
+            document.querySelectorAll('.en').forEach(el => el.style.display = 'block');
+            document.querySelectorAll('.amharic').forEach(el => el.style.display = 'none');
+            englishBtn.classList.add('active');
+            amharicBtn.classList.remove('active');
+        });
+        
+        amharicBtn.addEventListener('click', () => {
+            document.querySelectorAll('.en').forEach(el => el.style.display = 'none');
+            document.querySelectorAll('.amharic').forEach(el => el.style.display = 'block');
+            amharicBtn.classList.add('active');
+            englishBtn.classList.remove('active');
+        });
+
+        // Mobile Menu Toggle
+        const menuBtn = document.getElementById('menuBtn');
+        const navLinks = document.querySelector('.nav-links');
+        
+        menuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            menuBtn.innerHTML = navLinks.classList.contains('active') ? 
+                '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+        
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+        
+        // Smooth Scrolling for Anchor Links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    if (navLinks.classList.contains('active')) {
+                        navLinks.classList.remove('active');
+                        menuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                    }
+                }
+            });
+        });
+        
+        // Animation on Scroll
+        const animateOnScroll = () => {
+            const elements = document.querySelectorAll('.property-card, .testimonial-card, .about-img, .about-content');
+            
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (elementPosition < windowHeight - 100) {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }
+            });
+        };
+        
+        // Set initial state for animated elements
+        document.querySelectorAll('.property-card, .testimonial-card, .about-img, .about-content').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+        });
+        
+        // Run on load and scroll
+        window.addEventListener('load', animateOnScroll);
+        window.addEventListener('scroll', animateOnScroll);
+
+        // Contact Form Submission
+        const contactForm = document.getElementById('contactForm');
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert(document.querySelector('.en').style.display !== 'none' ? 
+                'Thank you for your message! We will contact you soon.' : 
+                'መልእክትዎን ለመላክ አመሰግናለን! በቅርብ ጊዜ እንገናኝዎታለን።');
+            contactForm.reset();
+        });
+    </script>
+    <!-- Add Noto Sans Ethiopic font for Amharic support -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Ethiopic:wght@400;500;600;700&display=swap" rel="stylesheet">
+</body>
+</html>

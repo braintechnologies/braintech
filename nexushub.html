@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NexusHub | Premium Co-Working Space</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Base Styles */
+    :root {
+      --primary: #6c5ce7;
+      --secondary: #a29bfe;
+      --dark: #2d3436;
+      --light: #f5f6fa;
+      --accent: #fd79a8;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background-color: #f9f9f9;
+      color: var(--dark);
+      overflow-x: hidden;
+    }
+
+    section {
+      padding: 6rem 10%;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 10%;
+      position: fixed;
+      width: 100%;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.97);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .logo i {
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--dark);
+      font-weight: 500;
+      transition: all 0.3s;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      transition: width 0.3s;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .cta-button {
+      padding: 0.7rem 1.8rem;
+      background: var(--primary);
+      color: white;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s;
+      display: inline-block;
+      border: 2px solid var(--primary);
+    }
+
+    .cta-button:hover {
+      background: transparent;
+      color: var(--primary);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(108, 92, 231, 0.2);
+    }
+
+    /* Hero Section */
+    #home {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, #f5f6fa 0%, #dfe6e9 100%);
+    }
+
+    .hero-content {
+      max-width: 600px;
+      z-index: 2;
+    }
+
+    .hero h1 {
+      font-size: 3.8rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+    }
+
+    .hero h1 span {
+      color: var(--primary);
+      position: relative;
+      display: inline-block;
+    }
+
+    .hero h1 span::after {
+      content: '';
+      position: absolute;
+      bottom: 10px;
+      left: 0;
+      width: 100%;
+      height: 15px;
+      background: rgba(108, 92, 231, 0.2);
+      z-index: -1;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 2.5rem;
+      opacity: 0.9;
+      line-height: 1.6;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    /* Workspace Animation */
+    .workspace-scene {
+      position: absolute;
+      right: 10%;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 500px;
+      height: 500px;
+      z-index: 1;
+    }
+
+    .workspace-element {
+      position: absolute;
+      border-radius: 15px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      transition: all 0.5s;
+    }
+
+    .workspace-element img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Features Section */
+    #features {
+      background: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 2.8rem;
+      margin-bottom: 5rem;
+      position: relative;
+    }
+
+    .section-title span {
+      color: var(--primary);
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 3rem;
+    }
+
+    .feature-card {
+      background: #f9f9f9;
+      padding: 2.5rem 2rem;
+      border-radius: 15px;
+      transition: all 0.4s;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 5px;
+      height: 0;
+      background: var(--primary);
+      transition: height 0.4s;
+      z-index: -1;
+    }
+
+    .feature-card:hover::before {
+      height: 100%;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(108, 92, 231, 0.1);
+      background: white;
+    }
+
+    .feature-card i {
+      font-size: 2.5rem;
+      color: var(--primary);
+      margin-bottom: 1.5rem;
+    }
+
+    .feature-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    /* Spaces Section */
+    #spaces {
+      background: linear-gradient(135deg, #f5f6fa 0%, #dfe6e9 100%);
+    }
+
+    .spaces-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 3rem;
+    }
+
+    .tab-button {
+      padding: 0.8rem 2rem;
+      background: transparent;
+      border: 2px solid var(--primary);
+      border-radius: 50px;
+      color: var(--primary);
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .tab-button.active,
+    .tab-button:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    .spaces-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .space-card {
+      background: white;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+      transition: all 0.4s;
+    }
+
+    .space-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(108, 92, 231, 0.15);
+    }
+
+    .space-img {
+      height: 200px;
+      overflow: hidden;
+    }
+
+    .space-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
+
+    .space-card:hover .space-img img {
+      transform: scale(1.1);
+    }
+
+    .space-info {
+      padding: 1.8rem;
+    }
+
+    .space-info h3 {
+      margin-bottom: 0.8rem;
+    }
+
+    .space-info p {
+      color: #666;
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+
+    .space-price {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    /* Testimonials */
+    #testimonials {
+      background: white;
+    }
+
+    .testimonials-container {
+      position: relative;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .testimonial-card {
+      background: white;
+      padding: 2.5rem;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      text-align: center;
+      margin: 0 1rem;
+    }
+
+    .testimonial-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin: 0 auto 1.5rem;
+      border: 3px solid var(--primary);
+    }
+
+    .testimonial-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .testimonial-text {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+      font-style: italic;
+      color: #555;
+    }
+
+    .testimonial-author {
+      font-weight: 700;
+    }
+
+    .testimonial-role {
+      color: var(--primary);
+      font-size: 0.9rem;
+    }
+
+    /* CTA Section */
+    #cta {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      color: white;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #cta .section-title {
+      color: white;
+    }
+
+    #cta .section-title span {
+      color: var(--accent);
+    }
+
+    .cta-content {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .cta-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .cta-buttons .cta-button {
+      background: white;
+      color: var(--primary);
+    }
+
+    .cta-buttons .cta-button.outline {
+      background: transparent;
+      border: 2px solid white;
+      color: white;
+    }
+
+    .cta-buttons .cta-button.outline:hover {
+      background: white;
+      color: var(--primary);
+    }
+
+    /* Footer */
+    .footer {
+      background: var(--dark);
+      color: white;
+      padding: 5rem 10% 3rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+
+    .footer-col h3 {
+      font-size: 1.3rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+      display: inline-block;
+    }
+
+    .footer-col h3::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 40px;
+      height: 3px;
+      background: var(--primary);
+    }
+
+    .footer-col ul {
+      list-style: none;
+    }
+
+    .footer-col ul li {
+      margin-bottom: 1rem;
+    }
+
+    .footer-col ul li a {
+      color: #ddd;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .footer-col ul li a:hover {
+      color: var(--primary);
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .social-icons a {
+      color: white;
+      font-size: 1.3rem;
+      transition: color 0.3s;
+    }
+
+    .social-icons a:hover {
+      color: var(--primary);
+    }
+
+    .copyright {
+      text-align: center;
+      padding-top: 3rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* Animations */
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+
+    .floating {
+      animation: float 6s infinite ease-in-out;
+    }
+
+    /* Responsive */
+    @media (max-width: 1200px) {
+      section {
+        padding: 5rem 7%;
+      }
+      
+      .workspace-scene {
+        width: 400px;
+        height: 400px;
+      }
+    }
+
+    @media (max-width: 992px) {
+      #home {
+        flex-direction: column;
+        text-align: center;
+        padding-top: 100px;
+        height: auto;
+        padding-bottom: 3rem;
+      }
+
+      .hero-content {
+        margin-bottom: 3rem;
+      }
+
+      .hero-buttons {
+        justify-content: center;
+      }
+
+      .workspace-scene {
+        position: relative;
+        right: auto;
+        top: auto;
+        transform: none;
+        margin: 0 auto;
+        width: 100%;
+        max-width: 400px;
+      }
+
+      .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .navbar {
+        padding: 1rem 5%;
+      }
+      
+      .nav-links {
+        display: none;
+      }
+      
+      .hero h1 {
+        font-size: 2.8rem;
+      }
+      
+      .section-title {
+        font-size: 2.2rem;
+      }
+
+      .spaces-tabs {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <a href="#" class="logo">
+      <i class="fas fa-project-diagram"></i>
+      NexusHub
+    </a>
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#features">Features</a></li>
+      <li><a href="#spaces">Spaces</a></li>
+      <li><a href="#testimonials">Testimonials</a></li>
+      <li><a href="#cta" class="cta-button">Book a Tour</a></li>
+    </ul>
+  </nav>
+
+  <!-- Home Section -->
+  <section id="home" class="hero">
+    <div class="hero-content">
+      <h1>Redefine Your <span>Work Experience</span></h1>
+      <p>NexusHub offers premium co-working spaces designed to inspire creativity, foster collaboration, and boost productivity. Join our community of innovators and creators.</p>
+      <div class="hero-buttons">
+        <a href="#spaces" class="cta-button">View Spaces</a>
+        <a href="#cta" class="cta-button outline">Book a Tour</a>
+      </div>
+    </div>
+    <div class="workspace-scene">
+      <div class="workspace-element floating" style="top: 0; left: 0; width: 250px; height: 250px;">
+        <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Coworking Space">
+      </div>
+      <div class="workspace-element floating" style="top: 100px; right: 0; width: 300px; height: 200px;">
+        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Meeting Room">
+      </div>
+      <div class="workspace-element floating" style="bottom: 0; left: 50px; width: 200px; height: 250px;">
+        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Workspace Lounge">
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section id="features">
+    <h2 class="section-title">Why Choose <span>NexusHub</span></h2>
+    <div class="features-grid">
+      <div class="feature-card">
+        <i class="fas fa-wifi"></i>
+        <h3>High-Speed Internet</h3>
+        <p>1Gbps fiber optic connection with dedicated bandwidth for seamless work experience.</p>
+      </div>
+      <div class="feature-card">
+        <i class="fas fa-coffee"></i>
+        <h3>Premium Amenities</h3>
+        <p>Artisanal coffee, healthy snacks, and relaxation zones to keep you energized.</p>
+      </div>
+      <div class="feature-card">
+        <i class="fas fa-calendar-alt"></i>
+        <h3>Community Events</h3>
+        <p>Weekly workshops, networking events, and skill-sharing sessions with industry leaders.</p>
+      </div>
+      <div class="feature-card">
+        <i class="fas fa-desktop"></i>
+        <h3>Tech-Ready Spaces</h3>
+        <p>Fully equipped meeting rooms with 4K displays and video conferencing facilities.</p>
+      </div>
+      <div class="feature-card">
+        <i class="fas fa-print"></i>
+        <h3>Business Services</h3>
+        <p>Printing, scanning, mail handling, and administrative support when you need it.</p>
+      </div>
+      <div class="feature-card">
+        <i class="fas fa-clock"></i>
+        <h3>24/7 Access</h3>
+        <p>Secure access to your workspace anytime, day or night, 365 days a year.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Spaces Section -->
+  <section id="spaces">
+    <h2 class="section-title">Our <span>Spaces</span></h2>
+    <div class="spaces-tabs">
+      <button class="tab-button active">All</button>
+      <button class="tab-button">Private Offices</button>
+      <button class="tab-button">Shared Desks</button>
+      <button class="tab-button">Meeting Rooms</button>
+    </div>
+    <div class="spaces-grid">
+      <div class="space-card">
+        <div class="space-img">
+          <img src="https://images.unsplash.com/photo-1564069114553-7215e1ff1890?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Private Office">
+        </div>
+        <div class="space-info">
+          <h3>Private Office</h3>
+          <p>Fully furnished private offices for teams of 2-10 people with lockable doors and storage.</p>
+          <div class="space-price">$450/month</div>
+        </div>
+      </div>
+      <div class="space-card">
+        <div class="space-img">
+          <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Shared Desk">
+        </div>
+        <div class="space-info">
+          <h3>Shared Desk</h3>
+          <p>Flexible hot-desking in our vibrant open workspace with all amenities included.</p>
+          <div class="space-price">$199/month</div>
+        </div>
+      </div>
+      <div class="space-card">
+        <div class="space-img">
+          <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Meeting Room">
+        </div>
+        <div class="space-info">
+          <h3>Meeting Room</h3>
+          <p>Professional meeting spaces available by the hour with all tech amenities included.</p>
+          <div class="space-price">$25/hour</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section id="testimonials">
+    <h2 class="section-title">What Our <span>Members Say</span></h2>
+    <div class="testimonials-container">
+      <div class="testimonial-card">
+        <div class="testimonial-avatar">
+          <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Sarah Johnson">
+        </div>
+        <p class="testimonial-text">
+          "NexusHub has transformed how I work. The creative energy here is contagious, and I've made more professional connections in 3 months than in 3 years of working from home."
+        </p>
+        <div class="testimonial-author">Sarah Johnson</div>
+        <div class="testimonial-role">Freelance Designer</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section id="cta">
+    <h2 class="section-title">Ready to <span>Elevate Your Workday?</span></h2>
+    <div class="cta-content">
+      <p>Join our community of innovators and experience the future of work. Book a tour today and discover the perfect space for your needs.</p>
+      <div class="cta-buttons">
+        <a href="#" class="cta-button">Book a Tour</a>
+        <a href="#" class="cta-button outline">Contact Us</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h3>NexusHub</h3>
+        <p>Premium co-working spaces designed for productivity, collaboration, and innovation.</p>
+        <div class="social-icons">
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h3>Locations</h3>
+        <ul>
+          <li><a href="#">Downtown Hub</a></li>
+          <li><a href="#">Tech District</a></li>
+          <li><a href="#">Riverside</a></li>
+          <li><a href="#">Uptown</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>Company</h3>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Press</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>Contact</h3>
+        <ul>
+          <li><i class="fas fa-map-marker-alt"></i> 123 Innovation Ave, City</li>
+          <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
+          <li><i class="fas fa-envelope"></i> hello@nexushub.com</li>
+          <li><i class="fas fa-clock"></i> Mon-Fri: 8am-8pm</li>
+        </ul>
+      </div>
+    </div>
+    <div class="copyright">
+      <p>&copy; 2023 NexusHub. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Workspace elements animation
+    const workspaceElements = document.querySelectorAll('.workspace-element');
+    setInterval(() => {
+      workspaceElements.forEach(element => {
+        const randomRotate = -5 + Math.random() * 10;
+        const randomZ = Math.random() * 20;
+        element.style.transform = `translateY(${Math.random() * 10 - 5}px) rotate(${randomRotate}deg) translateZ(${randomZ}px)`;
+      });
+    }, 2000);
+
+    // Tab functionality
+    const tabButtons = document.querySelectorAll('.tab-button');
+    tabButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        tabButtons.forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+        // Here you would filter spaces based on the tab
+      });
+    });
+
+    // Smooth scrolling for navigation
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+
+    // GSAP animations
+    document.addEventListener('DOMContentLoaded', () => {
+      // Register ScrollTrigger plugin
+      if (typeof gsap !== 'undefined' && gsap.registerPlugin) {
+        gsap.registerPlugin(ScrollTrigger);
+      }
+
+      // Animate sections on scroll
+      const sections = document.querySelectorAll('section');
+      sections.forEach(section => {
+        gsap.from(section, {
+          scrollTrigger: {
+            trigger: section,
+            start: 'top 80%',
+          },
+          opacity: 0,
+          y: 50,
+          duration: 1,
+        });
+      });
+
+      // Special animation for hero section
+      gsap.from('.hero-content h1', {
+        duration: 1,
+        y: 50,
+        opacity: 0,
+      });
+      gsap.from('.hero-content p', {
+        duration: 1,
+        y: 50,
+        opacity: 0,
+        delay: 0.3,
+      });
+      gsap.from('.hero-buttons', {
+        duration: 1,
+        y: 50,
+        opacity: 0,
+        delay: 0.6,
+      });
+
+      // Animate feature cards
+      gsap.utils.toArray('.feature-card').forEach((card, i) => {
+        gsap.from(card, {
+          scrollTrigger: {
+            trigger: card,
+            start: 'top 80%',
+          },
+          opacity: 0,
+          y: 50,
+          duration: 0.5,
+          delay: i * 0.1,
+        });
+      });
+    });
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+</body>
+</html>

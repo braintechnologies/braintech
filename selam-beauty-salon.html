@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="am">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ሰላም ቢውቲ ሳሎን | የእርስዎ ውበት ምንጭ</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Base Styles */
+    :root {
+      --primary: #E84855; /* Pink/Red */
+      --secondary: #F9DC5C; /* Gold */
+      --dark: #2D3047; /* Navy */
+      --light: #F5F5F5;
+      --accent: #A675A1; /* Purple */
+    }
+
+    @font-face {
+      font-family: 'Abyssinica SIL';
+      src: url('https://fonts.googleapis.com/css2?family=Abyssinica+SIL&display=swap');
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Abyssinica SIL', serif;
+      direction: ltr;
+    }
+
+    body {
+      background-color: #FAFAFA;
+      color: var(--dark);
+      line-height: 1.6;
+    }
+
+    section {
+      padding: 5rem 10%;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 10%;
+      position: fixed;
+      width: 100%;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.97);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .logo i {
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--dark);
+      font-weight: 500;
+      transition: all 0.3s;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      transition: width 0.3s;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .cta-button {
+      padding: 0.7rem 1.8rem;
+      background: var(--primary);
+      color: white;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s;
+      display: inline-block;
+      border: 2px solid var(--primary);
+    }
+
+    .cta-button:hover {
+      background: transparent;
+      color: var(--primary);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(232, 72, 85, 0.2);
+    }
+
+    /* Hero Section */
+    #home {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+                  url('https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80') no-repeat center center/cover;
+      color: white;
+      text-align: center;
+    }
+
+    .hero-content {
+      max-width: 800px;
+      margin: 0 auto;
+      z-index: 2;
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 2.5rem;
+      opacity: 0.9;
+    }
+
+    /* Beauty Elements Animation */
+    .beauty-elements {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: 1;
+    }
+
+    .element {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      opacity: 0.7;
+    }
+
+    /* Services Section */
+    #services {
+      background: white;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 3rem;
+      color: var(--primary);
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 25%;
+      width: 50%;
+      height: 3px;
+      background: var(--secondary);
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .service-card {
+      background: #FAFAFA;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .service-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(232, 72, 85, 0.1);
+    }
+
+    .service-icon {
+      font-size: 3rem;
+      color: var(--primary);
+      margin-bottom: 1.5rem;
+    }
+
+    /* Team Section */
+    #team {
+      background: linear-gradient(135deg, #F5F5F5 0%, #EAEAEA 100%);
+    }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+
+    .team-member {
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s;
+      text-align: center;
+    }
+
+    .team-member:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(232, 72, 85, 0.1);
+    }
+
+    .member-img {
+      height: 300px;
+      overflow: hidden;
+    }
+
+    .member-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
+
+    .team-member:hover .member-img img {
+      transform: scale(1.1);
+    }
+
+    .member-info {
+      padding: 1.5rem;
+    }
+
+    .member-info h3 {
+      margin-bottom: 0.5rem;
+      color: var(--primary);
+    }
+
+    .member-info p {
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    /* Pricing Section */
+    #pricing {
+      background: white;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .pricing-card {
+      background: #FAFAFA;
+      border-radius: 10px;
+      padding: 2rem;
+      text-align: center;
+      transition: all 0.3s;
+      border: 2px solid #EEE;
+    }
+
+    .pricing-card.popular {
+      border: 2px solid var(--primary);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pricing-card.popular::before {
+      content: 'ተመረጠ';
+      position: absolute;
+      top: 15px;
+      right: -30px;
+      background: var(--primary);
+      color: white;
+      padding: 0.3rem 3rem;
+      transform: rotate(45deg);
+      font-size: 0.8rem;
+    }
+
+    .pricing-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+
+    .price {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 1.5rem;
+    }
+
+    .price span {
+      font-size: 1rem;
+      color: #777;
+    }
+
+    .pricing-features {
+      list-style: none;
+      margin-bottom: 2rem;
+    }
+
+    .pricing-features li {
+      margin-bottom: 0.8rem;
+      position: relative;
+      padding-left: 1.5rem;
+    }
+
+    .pricing-features li::before {
+      content: '\f00c';
+      font-family: 'Font Awesome 6 Free';
+      font-weight: 900;
+      position: absolute;
+      left: 0;
+      color: var(--primary);
+    }
+
+    /* Contact Section */
+    #contact {
+      background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                  url('https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80') no-repeat center center/cover;
+      color: white;
+    }
+
+    .contact-container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 3rem;
+    }
+
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .contact-item i {
+      font-size: 1.5rem;
+      color: var(--secondary);
+      margin-top: 0.3rem;
+    }
+
+    .contact-form {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 2rem;
+      border-radius: 10px;
+      color: var(--dark);
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 0.8rem;
+      border: 1px solid #DDD;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+
+    .form-group textarea {
+      height: 150px;
+      resize: vertical;
+    }
+
+    /* Footer */
+    .footer {
+      background: var(--dark);
+      color: white;
+      padding: 4rem 10% 2rem;
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      color: var(--secondary);
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: white;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .footer-links a:hover {
+      color: var(--secondary);
+    }
+
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .social-icons a {
+      color: white;
+      font-size: 1.5rem;
+      transition: color 0.3s;
+    }
+
+    .social-icons a:hover {
+      color: var(--secondary);
+    }
+
+    .hours {
+      margin-bottom: 2rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 1200px) {
+      section {
+        padding: 4rem 7%;
+      }
+    }
+
+    @media (max-width: 992px) {
+      .contact-container {
+        grid-template-columns: 1fr;
+      }
+      
+      .hero h1 {
+        font-size: 2.8rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .navbar {
+        padding: 1rem 5%;
+      }
+      
+      .nav-links {
+        display: none;
+      }
+      
+      .section-title {
+        font-size: 2rem;
+      }
+      
+      .services-grid,
+      .team-grid,
+      .pricing-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <a href="#" class="logo">
+      <i class="fas fa-spa"></i>
+      ሰላም ቢውቲ ሳሎን
+    </a>
+    <ul class="nav-links">
+      <li><a href="#home">መግቢያ</a></li>
+      <li><a href="#services">አገልግሎቶች</a></li>
+      <li><a href="#team">ቡድናችን</a></li>
+      <li><a href="#pricing">የዋጋ አሰጣጥ</a></li>
+      <li><a href="#contact" class="cta-button">አዘዝ</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="home" class="hero">
+    <div class="beauty-elements" id="beautyElements"></div>
+    <div class="hero-content">
+      <h1>ውበትዎን ያሳዩ</h1>
+      <p>በሙያዊ እና ዘመናዊ የውበት አገልግሎቶች ራስዎን ያሻሽሉ</p>
+      <div class="hero-buttons">
+        <a href="#services" class="cta-button">አገልግሎቶች</a>
+        <a href="#contact" class="cta-button outline">አዘዝ</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section id="services">
+    <h2 class="section-title">የእኛ አገልግሎቶች</h2>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">
+          <i class="fas fa-cut"></i>
+        </div>
+        <h3>ፀጉር ማርብ</h3>
+        <p>በሙያተኞች የሚደረግ ዘመናዊ የፀጉር ማርባት አገልግሎት</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">
+          <i class="fas fa-paint-brush"></i>
+        </div>
+        <h3>ፀጉር ማቀለም</h3>
+        <p>ከፍተኛ ጥራት ያላቸው የፀጉር ማቀለም አገልግሎቶች</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">
+          <i class="fas fa-spa"></i>
+        </div>
+        <h3>ፊት ማጽዳት</h3>
+        <p>ለቆዳዎ የተለየ የሆነ የፊት ማጽዳት አገልግሎት</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">
+          <i class="fas fa-hand-sparkles"></i>
+        </div>
+        <h3>የእጅ እና የጫማ እስራ</h3>
+        <p>ሙሉ የእጅ እና የጫማ እስራ አገልግሎት</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">
+          <i class="fas fa-magic"></i>
+        </div>
+        <h3>ሜካፕ</h3>
+        <p>ለተለያዩ ዝግጅቶች የሚሆን የፊት ሜካፕ</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">
+          <i class="fas fa-rings-wedding"></i>
+        </div>
+        <h3>የጋብቻ ዝግጅት</h3>
+        <p>ለጋብቻ የሚሆን ሙሉ የውበት አገልግሎት</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Team Section -->
+  <section id="team">
+    <h2 class="section-title">ቡድናችን</h2>
+    <div class="team-grid">
+      <div class="team-member">
+        <div class="member-img">
+          <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Selam">
+        </div>
+        <div class="member-info">
+          <h3>ሰላም</h3>
+          <p>ዋና የፀጉር አርታኢ</p>
+        </div>
+      </div>
+      <div class="team-member">
+        <div class="member-img">
+          <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Marta">
+        </div>
+        <div class="member-info">
+          <h3>ማርታ</h3>
+          <p>የፊት ማጽዳት ሙያተኛ</p>
+        </div>
+      </div>
+      <div class="team-member">
+        <div class="member-img">
+          <img src="https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Eden">
+        </div>
+        <div class="member-info">
+          <h3>ኤደን</h3>
+          <p>የጥርስ ሜካፕ አርተስት</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Section -->
+  <section id="pricing">
+    <h2 class="section-title">የዋጋ አሰጣጥ</h2>
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <h3>መሠረታዊ</h3>
+        <div class="price">500 ብር <span>/ አገልግሎት</span></div>
+        <ul class="pricing-features">
+          <li>ፀጉር ማርብ</li>
+          <li>ፊት ማጽዳት</li>
+          <li>የእጅ እስራ</li>
+          <li>1 ሰዓት ውሎ</li>
+        </ul>
+        <a href="#contact" class="cta-button">አዘዝ</a>
+      </div>
+      <div class="pricing-card popular">
+        <h3>መደበኛ</h3>
+        <div class="price">800 ብር <span>/ አገልግሎት</span></div>
+        <ul class="pricing-features">
+          <li>ፀጉር ማርብ እና ማቀለም</li>
+          <li>ሙሉ የፊት ማጽዳት</li>
+          <li>የእጅ እና የጫማ እስራ</li>
+          <li>2 ሰዓት ውሎ</li>
+        </ul>
+        <a href="#contact" class="cta-button">አዘዝ</a>
+      </div>
+      <div class="pricing-card">
+        <h3>ፕሮፌሽናል</h3>
+        <div class="price">1200 ብር <span>/ አገልግሎት</span></div>
+        <ul class="pricing-features">
+          <li>ሙሉ የፀጉር አገልግሎት</li>
+          <li>ሙሉ የፊት ማጽዳት</li>
+          <li>ሜካፕ አገልግሎት</li>
+          <li>3 ሰዓት ውሎ</li>
+        </ul>
+        <a href="#contact" class="cta-button">አዘዝ</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact">
+    <h2 class="section-title">አግኙን</h2>
+    <div class="contact-container">
+      <div class="contact-info">
+        <div class="contact-item">
+          <i class="fas fa-map-marker-alt"></i>
+          <div>
+            <h3>አድራሻ</h3>
+            <p>ቦሌ መደብር, አዲስ አበባ, ኢትዮጵያ</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <i class="fas fa-phone-alt"></i>
+          <div>
+            <h3>ስልክ</h3>
+            <p>+251 920 202 912</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <i class="fas fa-envelope"></i>
+          <div>
+            <h3>ኢሜይል</h3>
+            <p>info@selambeauty.com</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <i class="fas fa-clock"></i>
+          <div>
+            <h3>ሰዓት</h3>
+            <p>ሰኞ - አርብ: 8:30 ጥዋት - 6:30 ምሽት</p>
+            <p>ቅዳሜ: 9:00 ጥዋት - 4:00 ምሽት</p>
+          </div>
+        </div>
+      </div>
+      <div class="contact-form">
+        <form>
+          <div class="form-group">
+            <label for="name">ስም</label>
+            <input type="text" id="name" required>
+          </div>
+          <div class="form-group">
+            <label for="phone">ስልክ</label>
+            <input type="tel" id="phone" required>
+          </div>
+          <div class="form-group">
+            <label for="service">አገልግሎት</label>
+            <select id="service" required>
+              <option value="">አገልግሎት ይምረጡ</option>
+              <option value="haircut">ፀጉር ማርብ</option>
+              <option value="coloring">ፀጉር ማቀለም</option>
+              <option value="facial">ፊት ማጽዳት</option>
+              <option value="manicure">የእጅ እስራ</option>
+              <option value="makeup">ሜካፕ</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="date">ቀን</label>
+            <input type="date" id="date" required>
+          </div>
+          <button type="submit" class="cta-button">አዘዝ</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-logo">
+      <i class="fas fa-spa"></i> ሰላም ቢውቲ ሳሎን
+    </div>
+    <div class="footer-links">
+      <a href="#home">መግቢያ</a>
+      <a href="#services">አገልግሎቶች</a>
+      <a href="#team">ቡድናችን</a>
+      <a href="#pricing">የዋጋ አሰጣጥ</a>
+      <a href="#contact">አግኙን</a>
+    </div>
+    <div class="social-icons">
+      <a href="#"><i class="fab fa-facebook"></i></a>
+      <a href="#"><i class="fab fa-telegram"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fab fa-tiktok"></i></a>
+    </div>
+    <div class="hours">
+      <p>ሰኞ - አርብ: 8:30 ጥዋት - 6:30 ምሽት</p>
+      <p>ቅዳሜ: 9:00 ጥዋት - 4:00 ምሽት</p>
+    </div>
+    <div class="copyright">
+      <p>&copy; 2023 ሰላም ቢውቲ ሳሎን. መብቱ በህግ የተጠበቀ ነው.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Create floating beauty elements
+    const beautyElements = [
+      'lipstick', 'brush', 'mirror', 'nail-polish', 'spa', 'makeup-brush'
+    ];
+    
+    const beautyElementsContainer = document.getElementById('beautyElements');
+    for (let i = 0; i < 15; i++) {
+      const element = document.createElement('div');
+      element.className = 'element';
+      element.style.left = `${Math.random() * 100}%`;
+      element.style.top = `${Math.random() * 100}%`;
+      element.style.transform = `rotate(${Math.random() * 360}deg)`;
+      element.style.animationDuration = `${5 + Math.random() * 10}s`;
+      element.style.animationDelay = `${Math.random() * 5}s`;
+      
+      const randomIcon = beautyElements[Math.floor(Math.random() * beautyElements.length)];
+      element.innerHTML = `<i class="fas fa-${randomIcon}"></i>`;
+      element.style.color = `hsl(${Math.random() * 360}, 70%, 70%)`;
+      
+      beautyElementsContainer.appendChild(element);
+    }
+
+    // Smooth scrolling for navigation
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+
+    // Form submission handling
+    document.querySelector('form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('በቅንብናዎ ላይ ምስጋናው ይድረስ! በቅርቡ እንገናኝዎታለን።');
+      this.reset();
+    });
+
+    // GSAP animations
+    document.addEventListener('DOMContentLoaded', () => {
+      // Register ScrollTrigger plugin
+      if (typeof gsap !== 'undefined' && gsap.registerPlugin) {
+        gsap.registerPlugin(ScrollTrigger);
+      }
+
+      // Animate sections on scroll
+      const sections = document.querySelectorAll('section');
+      sections.forEach(section => {
+        gsap.from(section, {
+          scrollTrigger: {
+            trigger: section,
+            start: 'top 80%',
+          },
+          opacity: 0,
+          y: 50,
+          duration: 1,
+        });
+      });
+
+      // Special animation for hero section
+      gsap.from('.hero h1', {
+        duration: 1,
+        y: 50,
+        opacity: 0,
+      });
+      gsap.from('.hero p', {
+        duration: 1,
+        y: 50,
+        opacity: 0,
+        delay: 0.3,
+      });
+      gsap.from('.hero-buttons', {
+        duration: 1,
+        y: 50,
+        opacity: 0,
+        delay: 0.6,
+      });
+    });
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+</body>
+</html>
